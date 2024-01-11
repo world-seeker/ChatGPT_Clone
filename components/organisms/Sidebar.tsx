@@ -1,40 +1,45 @@
 'use client'
 
-import { signOut, useSession } from "next-auth/react";
-import NewChat from "../atoms/NewChat"
 
+import { useSession } from "next-auth/react";
+import LogOut from "../atoms/LogOut"
+import NewChat from "../atoms/NewChat"
+import { useCollection } from 'react-firebase-hooks/firestore'
+import { collection, orderBy, query } from "firebase/firestore";
+import { db } from "@/firebase";
+import ChatRow from "../molecules/ChatRow";
 
 function Sidebar() {
+   
   const {data:session} = useSession();
+
+   const [chats,loading,error] = useCollection(
+    session && query(collection(db,"users",session?.user?.email!,"chats"),
+    orderBy("createdAt","desc"))
+   );
+
   return (
-    <div className="p-2 flex flex-col h-screen">
-        <div className="flex-1">
-            {/* New Chat */}
-            <NewChat/>
+  <div 
+   className="p-2 flex flex-col h-screen">
+        <div
+         className="flex-1">
+          <div>
+           <NewChat/>
+
             <div>
                 {/* ModleSleection */}
-
             </div>
+          </div>
+           
+          
+          {chats?.docs.map((chat) => (
+          <ChatRow key={chat.id} id={chat.id} />
+           ))}
 
-            {/* Map through the chatrows */}
 
         </div>
-        {session && (
-          <div
-           onClick={()=>signOut()} 
-           className="flex justify-center  items-center text-white cursor-pointer
-           text-[1.5vh] 
-           space-x-2 hover:opacity-50 border border-gray-700 px-4 py-1 font-bold md:justify-between md:text-[1.5rem] overflow-hidden ">
-            <img
-             src={session.user?.image!}
-             className="w-12 h-12 rounded-full"
-             alt="Profile Picture"/> 
-             <p>LogOut</p> 
-             
-          </div>
-        )}
-       
-    </div>
+       <LogOut/>   
+  </div>
   )
 }
 
