@@ -20,16 +20,18 @@ function Sidebar() {
 
         </div>
         {session && (
-          <button
-          onClick={()=>signOut()} 
-          className="flex items-center justify-between p-2 border font-bold text-white hover:opacity-50">
-          <img
-           src={session.user?.image!}
-           className="rounded-full h-12 w-12 cursor-pointer hover:opacity-50"
-           alt="Profile Picture"/>
-           &nbsp;
-           LogOut
-           </button>
+          <div
+           onClick={()=>signOut()} 
+           className="flex justify-center  items-center text-white cursor-pointer
+           text-[1.5vh] 
+           space-x-2 hover:opacity-50 border border-gray-700 px-4 py-1 font-bold md:justify-between md:text-[1.5rem] overflow-hidden ">
+            <img
+             src={session.user?.image!}
+             className="w-12 h-12 rounded-full"
+             alt="Profile Picture"/> 
+             <p>LogOut</p> 
+             
+          </div>
         )}
        
     </div>

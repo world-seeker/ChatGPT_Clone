@@ -1,10 +1,9 @@
-import Image from 'next/image';
 import { BoltIcon, ExclamationTriangleIcon, SunIcon } from '@heroicons/react/24/outline';
-import ChatBox from '@/components/atoms/ChatBox';
+
 
 export default function Home() {
   return (
-    <main className='text-white flex flex-col justify-between p-4 items-center h-screen px-2'>
+    <main className='text-white flex flex-col justify-center p-4 items-center h-screen px-2 overflow-scroll'>
       <h1 className='text-5xl font-bold mb-20'>ChatGpt</h1>
 
       <div className='flex space-x-2'>
@@ -69,7 +68,7 @@ export default function Home() {
         </div>
       </div>
 
-      <ChatBox />
+ 
     </main>
   );
 }
