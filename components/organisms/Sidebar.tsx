@@ -8,6 +8,7 @@ import { useCollection } from 'react-firebase-hooks/firestore'
 import { collection, orderBy, query } from "firebase/firestore";
 import { db } from "@/firebase";
 import ChatRow from "../molecules/ChatRow";
+import ModelSelection from "../molecules/ModelSelection";
 
 function Sidebar() {
    
@@ -15,7 +16,7 @@ function Sidebar() {
 
    const [chats,loading,error] = useCollection(
     session && query(collection(db,"users",session?.user?.email!,"chats"),
-    orderBy("createdAt","desc"))
+    orderBy("createdAt","asc"))
    );
 
   return (
@@ -25,16 +26,26 @@ function Sidebar() {
          className="flex-1">
           <div>
            <NewChat/>
+         {/* ModleSleection */}
+            <div className="hidden sm:inline">
+              <ModelSelection/>
 
-            <div>
-                {/* ModleSleection */}
+
             </div>
           </div>
            
-          
+          <div className="flex flex-col space-y-2 my-2">
+           
+          {loading && (
+            <div className="animate-pulse text-center text-white">
+             <p>Loading...</p>
+            </div>
+          )}
+
           {chats?.docs.map((chat) => (
           <ChatRow key={chat.id} id={chat.id} />
            ))}
+          </div>
 
 
         </div>

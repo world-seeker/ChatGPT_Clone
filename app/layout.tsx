@@ -6,6 +6,7 @@ import SessionProvider from '@/components/molecules/SessionProvider'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../pages/api/auth/[...nextauth]'
 import Login from '@/components/organisms/Login'
+import ClientProvider from '@/components/molecules/ClientProvider'
 
 
 
@@ -36,8 +37,11 @@ export default async function RootLayout({
              <Sidebar/>
             </div>
         
-            {/** Client Provider - Notification */}
-            <div className='bg-[#343541] flex-1'>
+         
+
+           <ClientProvider/>
+
+            <div className='bg-[#343541] flex-1 '>
              {children}
             </div>
       
