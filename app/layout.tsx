@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import Sidebar from '@/components/organisms/Sidebar'
 import SessionProvider from '@/components/molecules/SessionProvider'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../pages/api/auth/[...nextauth]'
 import Login from '@/components/organisms/Login'
 import ClientProvider from '@/components/molecules/ClientProvider'
+
+import Toggle from '@/components/atoms/Toggle'
 
 
 
@@ -25,27 +26,29 @@ export default async function RootLayout({
 
   const session = await getServerSession(authOptions)
  
+  
+
+
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <SessionProvider session={session}>
+      <body className={inter.className + `overflow-hidden`}>
+        <SessionProvider
+          session={session}>
+
           {!session ?(<Login/>):(
             <div className='flex'>
-            
-            {/** Side Bar */}
-            <div className='bg-[#202123] max-w-xs h-screen overflow-y-auto md:min-w-[20rem] '>   
-             <Sidebar/>
-            </div>
+
+             <div>   
+             <Toggle/>
+             </div>
         
-         
+             <ClientProvider/>
 
-           <ClientProvider/>
-
-            <div className='bg-[#343541] flex-1 '>
-             {children}
-            </div>
+             <div className='bg-[#343541] flex-1 '>
+              {children}
+             </div>
       
-        </div>
+            </div>
           )}
         </SessionProvider>
       </body>

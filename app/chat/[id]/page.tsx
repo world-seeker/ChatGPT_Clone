@@ -12,7 +12,7 @@ function ChatPage({params:{id}}:Props) {
 
   return (
     <div className='flex flex-col h-screen overflow-hidden group'>
-      <p className= 'hidden group-hover:block hover:text-red-500 font-bold pl-2 text-gray-600 animate-pulse'>made By Swapnil Pandey</p>
+      <p className= 'hidden group-hover:block hover:text-red-500 font-bold pl-2 text-gray-600 animate-pulse mx-auto'>made By Swapnil Pandey</p>
      {/* Chat Window */}
      <Chat chatId={id}/>
      {/* Chat Input */}

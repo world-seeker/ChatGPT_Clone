@@ -40,7 +40,7 @@ function ChatRow({id}:Props) {
     router.replace('/');
   }
 
-  const lastMessage = messages?.docs[messages?.docs.length - 1];
+  const lastMessage = messages?.docs[0];
   const lastMessageText = lastMessage ? lastMessage.data().text : "New Chat";
   
  
@@ -53,7 +53,7 @@ function ChatRow({id}:Props) {
      href="/chat/[Id]" as={`/chat/${id}`}
      >
        <ChatBubbleLeftIcon className="w-4 h-4"/>
-       <p className="flex-1 hidden md:inline-flex truncate">{lastMessageText || 'New Chat'}</p>
+       <p className="flex-1 truncate">{lastMessageText || 'New Chat'}</p>
        <TrashIcon
        onClick={removeChat}
         className="h-5 w-5 text-gray-700 hover:text-red-500"/>
